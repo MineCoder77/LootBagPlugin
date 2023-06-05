@@ -1,13 +1,15 @@
 # 🎁LootBag Plugin!
 
-| Native language  |    C++   |
-| ----------------- | -------- |
+| Description | Language |
+| ----------------- | --------------------------- |
+| Native language                       |    C++  |
+| Native language of the plugin content |    RU   |
 
 😋 This is a default kit start, but using addon for implement functionality.
 
 -----
 
-Releases <a href="https://github.com/MineCoder77/BuyerPlugin/releases/tag/BuyerPlugin">here</a>.
+Releases <a href="https://github.com/MineCoder77/BuyerPlugin/releases/tag/LootBagPlugin">here</a>.
 
 Addon <a href="https://github.com/MineCoder77/LootBagAddon">here</a>.
 
