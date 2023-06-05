@@ -7,6 +7,8 @@
 
 😋 This is a default kit start, but using addon for implement functionality.
 
+✨ Configure your items items.json file!
+
 ![alt text](assets/lb.png "LootBag example1")
 ![alt text](assets/lb2.png "LootBag example2")
 
