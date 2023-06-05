@@ -9,7 +9,7 @@
 
 -----
 
-Releases <a href="https://github.com/MineCoder77/BuyerPlugin/releases/tag/LootBagPlugin">here</a>.
+Releases <a href="https://github.com/MineCoder77/LootBagPlugin/releases/tag/LootBagPlugin">here</a>.
 
 Addon <a href="https://github.com/MineCoder77/LootBagAddon">here</a>.
 
