@@ -19,6 +19,13 @@ private:
 public:
 	void init();
 	static JsonConfig& get_instance();
-	int get_radius();
 	nlohmann::json get_config();
-;};
+	bool contains_items();
+};
+
+namespace PluginFolder {
+	bool contains_in_plugin_folder(std::string name);
+	void set_in_plugin_folder(std::string name);
+	void create_folder();
+	bool isset_folder_path();
+}
