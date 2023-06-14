@@ -1,6 +1,6 @@
-﻿#include "header/EventHandler.hpp"
+#include "header/EventHandler.hpp"
 
-void give_kit(Player* player);
+const void give_kit(Player* player);
 
 inline EventHandler EventHandler::instance = EventHandler();
 
@@ -37,13 +37,13 @@ inline void EventHandler::on_player_join() {
 	});
 }
 
-inline void give_kit(Player* player) {
+inline const void give_kit(Player* player) {
 	if (JsonConfig::get_instance().contains_items()) {
 		for (const auto& x : JsonConfig::get_instance().get_config())
 			player->giveItem(std::string(x["id"]), short(x["count"]));
 	}
 	else
-		throw std::runtime_error("Необходим минимум 1 предмет в наборе: в вашем конфиг-файле нет ни 1 предмета.");
+		logger.error("Необходим минимум 1 предмет в наборе: в вашем конфиг-файле нет ни 1 предмета.");
 }
 
 inline void EventHandler::init() {
