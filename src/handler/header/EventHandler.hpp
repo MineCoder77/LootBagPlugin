@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <llapi/EventAPI.h>
 #include <llapi/mc/ItemStack.hpp>
