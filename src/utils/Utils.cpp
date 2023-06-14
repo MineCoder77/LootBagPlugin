@@ -1,4 +1,4 @@
-﻿#include "header/Utils.hpp"
+#include "header/Utils.hpp"
 #include <string>
 
 JsonConfig JsonConfig::instance = JsonConfig();
@@ -39,36 +39,56 @@ bool JsonConfig::create_file() {
 	return true;
 }
 
-bool JsonConfig::isset_config_path() {
+const bool JsonConfig::isset_config_path() {
 	return PluginFolder::isset_folder_path();
 }
 
-bool JsonConfig::isset_config() {
+const bool JsonConfig::isset_config() {
 	return std::filesystem::exists("plugins/LootBag/items.json");
 }
 
-void JsonConfig::init() {
+const bool JsonConfig::check_config_correct() {
+	for (const auto& x : get_config()) {
+		if (x.empty()) {
+			logger.error("Предмет не может быть пуст. Он должен содержать айди и количество!");
+			return false;
+		}
+		if (!x["id"].is_string()) {
+			logger.error("Айди предметов должно быть в виде строки!");
+			return false;
+		}
+		if (!x["count"].is_number() || !x["count"].is_number_integer()) {
+			logger.error("Количество предметов должно быть целочисленного типа!");
+			return false;
+		}
+	}
+	return true;
+}
+
+const void JsonConfig::init() {
 	if (!isset_config_path()) {
 		logger.info("Папка LootBag не существует. Создаю...");
 		PluginFolder::create_folder();
 		logger.info("Папка успешно создана.");
 		logger.info("Создаю конфиг items.json.");
 		if (!create_file())
-			throw std::runtime_error("Проблемы с созданием конфига. Проверьте права на запись файла.");
+			logger.error("Проблемы с созданием конфига. Проверьте права на запись файла.");
 		else
 			logger.info("Файл items.json успешно создан!");
 	}
 	else if (!isset_config()) {
 		logger.info("Не найден конфиг items.json. Создаю новый...");
 		if (!create_file())
-			throw std::runtime_error("Проблемы с созданием конфига. Проверьте права на запись файла.");
+			logger.error("Проблемы с созданием конфига. Проверьте права на запись файла.");
 		else
 			logger.info("Файл items.json успешно создан!");
 	}
 	set_config();
+	check_config_correct() ? logger.info("Конфиг-файл настроен правильно. Плагин работает!") :
+		logger.error("В конфиг-файле были найдены ошибки. Пока Вы их не исправите, код не будет работать!");
 }
 
-bool PluginFolder::contains_in_plugin_folder(std::string name) {
+const bool PluginFolder::contains_in_plugin_folder(std::string name) {
 	return std::filesystem::exists("plugins/LootBag/" + name + ".lb");
 }
 
@@ -76,7 +96,7 @@ void PluginFolder::set_in_plugin_folder(std::string name) {
 	std::ofstream file("plugins/LootBag/" + name + ".lb");
 	if (!file) {
 		file.close();
-		throw std::runtime_error("Невозможно записать файл игрока.");
+		logger.error("Невозможно записать файл игрока.");
 	}
 	file.close();
 }
@@ -85,6 +105,6 @@ void PluginFolder::create_folder() {
 	std::filesystem::create_directories("plugins/LootBag");
 }
 
-bool PluginFolder::isset_folder_path() {
+const bool PluginFolder::isset_folder_path() {
 	return std::filesystem::exists("plugins/LootBag");
 }
