@@ -37,7 +37,7 @@ inline void EventHandler::on_player_join() {
 	});
 }
 
-inline const void give_kit(Player* player) {
+inline void give_kit(Player* player) {
 	if (JsonConfig::get_instance().contains_items()) {
 		for (const auto& x : JsonConfig::get_instance().get_config())
 			player->giveItem(std::string(x["id"]), short(x["count"]));
