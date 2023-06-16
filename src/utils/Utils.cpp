@@ -39,15 +39,15 @@ bool JsonConfig::create_file() {
 	return true;
 }
 
-const bool JsonConfig::isset_config_path() {
+bool JsonConfig::isset_config_path() {
 	return PluginFolder::isset_folder_path();
 }
 
-const bool JsonConfig::isset_config() {
+bool JsonConfig::isset_config() {
 	return std::filesystem::exists("plugins/LootBag/items.json");
 }
 
-const bool JsonConfig::check_config_correct() {
+bool JsonConfig::check_config_correct() {
 	for (const auto& x : get_config()) {
 		if (x.empty()) {
 			logger.error("Предмет не может быть пуст. Он должен содержать айди и количество!");
@@ -65,7 +65,7 @@ const bool JsonConfig::check_config_correct() {
 	return true;
 }
 
-const void JsonConfig::init() {
+void JsonConfig::init() {
 	if (!isset_config_path()) {
 		logger.info("Папка LootBag не существует. Создаю...");
 		PluginFolder::create_folder();
@@ -88,7 +88,7 @@ const void JsonConfig::init() {
 		logger.error("В конфиг-файле были найдены ошибки. Пока Вы их не исправите, код не будет работать!");
 }
 
-const bool PluginFolder::contains_in_plugin_folder(std::string name) {
+bool PluginFolder::contains_in_plugin_folder(std::string name) {
 	return std::filesystem::exists("plugins/LootBag/" + name + ".lb");
 }
 
@@ -105,6 +105,6 @@ void PluginFolder::create_folder() {
 	std::filesystem::create_directories("plugins/LootBag");
 }
 
-const bool PluginFolder::isset_folder_path() {
+bool PluginFolder::isset_folder_path() {
 	return std::filesystem::exists("plugins/LootBag");
 }
